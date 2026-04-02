@@ -68,6 +68,4 @@ function randomizeColor() {
     return `rgb(${randRGBchannel()}, ${randRGBchannel()}, ${randRGBchannel()})`
 }
 
-console.log(randomizeColor());
-
 render();
