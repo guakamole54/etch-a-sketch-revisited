@@ -20,7 +20,12 @@ function render() {
             div.className = 'grid';
             div.style.width = divSizePx + "px";
             div.style.height = divSizePx + "px";
-            div.addEventListener('mouseenter', () => div.classList.add('grid-black'));
+            div.addEventListener('mouseenter', (e) => {
+                if (!e.target.classList.contains('colored')) {
+                    div.style.backgroundColor = randomizeColor();
+                    div.classList.add('colored')
+                }
+            });
             container.appendChild(div);
         }
 
@@ -29,10 +34,17 @@ function render() {
 }
 
 function resetGrid() {
-    const gridDivs = document.querySelectorAll('.grid-black');
+    const gridDivs = document.querySelectorAll('.grid');
     gridDivs.forEach(div => {
-        div.classList.remove('grid-black');
+        div.style.backgroundColor = 'white'
     });
 }
+
+function randomizeColor() {
+    const randRGBchannel = () => Math.floor(Math.random() * 255);
+    return `rgb(${randRGBchannel()}, ${randRGBchannel()}, ${randRGBchannel()})`
+}
+
+console.log(randomizeColor());
 
 render();
