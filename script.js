@@ -15,7 +15,6 @@ function render() {
     container.innerHTML = '';
     let gridSizeVal = +gridSize.value;
     const divSizePx = (560 / gridSizeVal);
-    console.log(divSizePx);
     for (let row = 0; row < gridSizeVal; row++) {
         for (let col = 0; col < gridSizeVal; col++) {
             const div = document.createElement('div');
@@ -34,10 +33,18 @@ function render() {
                         if (!e.target.classList.contains('colored')) {
                             div.style.backgroundColor = randomizeColor();
                             div.classList.add('colored')
-                            break;
-
                         }
+                        break;
+                    case "black-progress":
+                        if (!e.target.classList.contains('colored')) {
+                            div.style.backgroundColor = 'black';
+                            div.style.opacity = 0.1;
+                            div.classList.add('colored');
 
+                        } else {
+                            div.style.opacity = Math.min(+div.style.opacity + 0.1, 1);
+                        }
+                        break;
 
                 }
             })
@@ -51,7 +58,8 @@ function render() {
 function resetGrid() {
     const gridDivs = document.querySelectorAll('.grid');
     gridDivs.forEach(div => {
-        div.style.backgroundColor = 'white'
+        div.style.backgroundColor = 'white';
+        div.style.opacity = null;
     });
 }
 
