@@ -1,12 +1,14 @@
 const container = document.querySelector('.container');
 const btnReset = document.querySelector('.btn-reset');
 const gridSize = document.querySelector('.grid-size');
+const penMode = document.querySelector('#pen');
 
 btnReset.addEventListener('click', () => {
     resetGrid()
 })
 
 gridSize.addEventListener("change", () => render())
+penMode.addEventListener("change", () => render())
 
 function render() {
     // clear the existing divs
@@ -21,11 +23,24 @@ function render() {
             div.style.width = divSizePx + "px";
             div.style.height = divSizePx + "px";
             div.addEventListener('mouseenter', (e) => {
-                if (!e.target.classList.contains('colored')) {
-                    div.style.backgroundColor = randomizeColor();
-                    div.classList.add('colored')
+                switch (penMode.value) {
+                    case 'black':
+                        if (!e.target.classList.contains('colored')) {
+                            div.style.backgroundColor = 'black';
+                            div.classList.add('colored')
+                        }
+                        break;
+                    case "random-color":
+                        if (!e.target.classList.contains('colored')) {
+                            div.style.backgroundColor = randomizeColor();
+                            div.classList.add('colored')
+                            break;
+
+                        }
+
+
                 }
-            });
+            })
             container.appendChild(div);
         }
 
